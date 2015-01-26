@@ -46,6 +46,11 @@ public class RangingActivity extends Activity implements OnClickListener, GPSSer
 	TextView displayStartLatitude, displayStartLongitude,
     startLatitude, startLongitude, distance, lastDistance, bearings;
 	Button startNavigate, endNavigate;
+	double lat1 = 0;
+    double lon1 = 0;
+    double lat2 = 0;
+    double lon2 = 0;
+    double d = 0;
 
     // Distance in meters of earth's equatorial radius
     final float EARTH_EQUITORIAL_RADIUS_METERS = 6378137.0f;
