@@ -26,7 +26,10 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import com.harris.challenge.brata.R;
 import com.harris.challenge.brata.framework.GPSService;
 import com.harris.challenge.brata.framework.GPSService.GPSServiceListener;
@@ -38,6 +41,11 @@ import com.harris.challenge.brata.framework.GPSService.GPSServiceListener;
  *
  */
 public class RangingActivity extends Activity implements OnClickListener, GPSServiceListener{
+
+	boolean updateGPS = true;
+	TextView displayStartLatitude, displayStartLongitude,
+    startLatitude, startLongitude, distance, lastDistance, bearings;
+	Button startNavigate, endNavigate;
 
     // Distance in meters of earth's equatorial radius
     final float EARTH_EQUITORIAL_RADIUS_METERS = 6378137.0f;
