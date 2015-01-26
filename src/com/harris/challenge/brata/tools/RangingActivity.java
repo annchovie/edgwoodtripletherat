@@ -74,6 +74,16 @@ public class RangingActivity extends Activity implements OnClickListener, GPSSer
         // to our Activity. We can now find views within that layout and
         // manipulate them. Don't try to call findViewById() before this!
         setContentView(R.layout.activity_ranging);
+        
+        displayStartLatitude = (TextView) findViewById(R.id.displayStartLatitude);
+		startLatitude = (TextView) findViewById(R.id.startLatitude);
+		displayStartLongitude = (TextView) findViewById(R.id.displayStartLongitude);
+		startLongitude = (TextView) findViewById(R.id.startLongitude);
+		startNavigate = (Button)findViewById(R.id.startNavigate);
+		endNavigate = (Button)findViewById(R.id.endNavigate);
+		distance = (TextView) findViewById(R.id.distance);
+		lastDistance = (TextView) findViewById(R.id.displayLastDistance);
+		bearings = (TextView) findViewById(R.id.bearings);
 
         // The GPS Service runs independently of the applications 
         // activities.  The bindService() function allows this 
