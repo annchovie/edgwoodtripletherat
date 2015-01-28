@@ -26,7 +26,10 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import com.harris.challenge.brata.R;
 import com.harris.challenge.brata.framework.GPSService;
 import com.harris.challenge.brata.framework.GPSService.GPSServiceListener;
@@ -38,6 +41,16 @@ import com.harris.challenge.brata.framework.GPSService.GPSServiceListener;
  *
  */
 public class RangingActivity extends Activity implements OnClickListener, GPSServiceListener{
+
+	boolean updateGPS = true;
+	TextView displayStartLatitude, displayStartLongitude,
+    startLatitude, startLongitude, distance, lastDistance, bearings;
+	Button startNavigate, endNavigate;
+	double lat1 = 0;
+    double lon1 = 0;
+    double lat2 = 0;
+    double lon2 = 0;
+    double d = 0;
 
     // Distance in meters of earth's equatorial radius
     final float EARTH_EQUITORIAL_RADIUS_METERS = 6378137.0f;
@@ -61,6 +74,16 @@ public class RangingActivity extends Activity implements OnClickListener, GPSSer
         // to our Activity. We can now find views within that layout and
         // manipulate them. Don't try to call findViewById() before this!
         setContentView(R.layout.activity_ranging);
+        
+        displayStartLatitude = (TextView) findViewById(R.id.displayStartLatitude);
+		startLatitude = (TextView) findViewById(R.id.startLatitude);
+		displayStartLongitude = (TextView) findViewById(R.id.displayStartLongitude);
+		startLongitude = (TextView) findViewById(R.id.startLongitude);
+		startNavigate = (Button)findViewById(R.id.startNavigate);
+		endNavigate = (Button)findViewById(R.id.endNavigate);
+		distance = (TextView) findViewById(R.id.distance);
+		lastDistance = (TextView) findViewById(R.id.displayLastDistance);
+		bearings = (TextView) findViewById(R.id.bearings);
 
         // The GPS Service runs independently of the applications 
         // activities.  The bindService() function allows this 
