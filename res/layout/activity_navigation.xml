@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+  <TextView android:id="@+id/destination" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@+id/navigate" android:layout_centerHorizontal="true" android:layout_marginTop="14dp" android:text="Destination:" android:textAppearance="?android:attr/textAppearanceSmall" android:visibility="invisible" /> 
+  <TextView android:id="@+id/viewLongitude" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignBaseline="@+id/destinationLongitude" android:layout_alignBottom="@+id/destinationLongitude" android:layout_alignLeft="@+id/viewLatitude" android:text="Longitude" /> 
+  <EditText android:id="@+id/destinationLongitude" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignLeft="@+id/destination" android:layout_alignRight="@+id/distance" android:layout_below="@+id/destinationLatitude" android:layout_marginTop="18dp" android:ems="10" android:inputType="numberSigned|numberDecimal" /> 
+  <EditText android:id="@+id/destinationLatitude" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignBaseline="@+id/viewLatitude" android:layout_alignBottom="@+id/viewLatitude" android:layout_alignLeft="@+id/destinationLongitude" android:layout_alignRight="@+id/destinationLongitude" android:ems="10" android:inputType="numberSigned|numberDecimal" /> 
+  <TextView android:id="@+id/viewLatitude" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentLeft="true" android:layout_below="@+id/currentLocation" android:layout_marginLeft="17dp" android:layout_marginTop="48dp" android:text="Latitude" /> 
+  <TextView android:id="@+id/currentLocation" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignLeft="@+id/distance" android:layout_alignParentTop="true" android:layout_alignRight="@+id/destinationLatitude" android:layout_marginTop="17dp" android:text="Current Location: (00.00, 00.00)" android:textAppearance="?android:attr/textAppearanceMedium" android:textSize="25sp" /> 
+  <ImageView android:id="@+id/arrow" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" android:layout_marginBottom="18dp" android:minHeight="90dp" android:minWidth="90dp" android:src="@drawable/ic_compass_arrowup" android:visibility="invisible" /> 
+  <TextView android:id="@+id/distance" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@+id/destination" android:layout_centerHorizontal="true" android:layout_marginTop="20dp" android:text="Distance from destination:" android:textAppearance="?android:attr/textAppearanceMedium" android:visibility="invisible" /> 
+  <TextView android:id="@+id/bearingsTitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@+id/distance" android:layout_centerHorizontal="true" android:layout_marginTop="16dp" android:text="Your Destination is:" android:visibility="invisible" />
 
-</RelativeLayout>
+  <Button
+      android:id="@+id/navigate"
+      style="?android:attr/buttonStyleSmall"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignRight="@+id/destination"
+      android:layout_below="@+id/destinationLongitude"
+      android:onClick="onButtonClick"
+      android:text="Navigate" />
+ 
+  </RelativeLayout>

@@ -30,6 +30,10 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -38,6 +42,16 @@ import android.widget.Toast;
  */
 public class NavigationActivity extends Activity implements OnClickListener, GPSServiceListener{
 
+	TextView currentLocation, destination, distance, bearings;
+	EditText destinationLongitude,destinationLatitude;
+	Button navigate;
+	ImageView arrow;
+	public static double lat1=0;
+	public static double lon1=0;
+	public static double lat2=0;
+	public static double lon2=0;
+	public static double latB=0;
+	
     private GPSService gpsService = null;
 
     /*
@@ -56,6 +70,15 @@ public class NavigationActivity extends Activity implements OnClickListener, GPS
         // to our Activity. We can now find views within that layout and
         // manipulate them. Don't try to call findViewById() before this!
         setContentView(R.layout.activity_navigation);
+        
+        currentLocation = (TextView) findViewById(R.id.currentLocation);
+		destination = (TextView) findViewById(R.id.destination);
+		distance = (TextView) findViewById(R.id.distance);
+		bearings = (TextView)findViewById(R.id.bearingsTitle);
+		destinationLongitude = (EditText) findViewById(R.id.destinationLongitude);
+		destinationLatitude = (EditText) findViewById(R.id.destinationLatitude);
+		navigate = (Button)findViewById(R.id.navigate);
+		arrow = (ImageView) findViewById(R.id.arrow);
 
         // The GPS Service runs independently of the applications 
         // activities.  The bindService() function allows this 
@@ -130,8 +153,10 @@ public class NavigationActivity extends Activity implements OnClickListener, GPS
      */
     @Override
     public void onLocationChanged(Location location) {
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
+    	double latitude = location.getLatitude();
+	    double longitude = location.getLongitude();
+		lat1 = latitude;
+		lon1 = longitude;
 
         // Use Toast to display a messages briefly. It is a great tool
         // for debugging.  It is useful for determining the details of
@@ -153,10 +178,57 @@ public class NavigationActivity extends Activity implements OnClickListener, GPS
         }
 
         //TODO:  Use the location coordinates to do something useful
+        
+      //Displaying current location
+      	currentLocation.setText("Current Location:\n (" + latitude +", " + longitude + ")");
+
+      //Calculating and displaying distance 
+      	haversine(lat1, lon1, lat2, lon2);
+      		
+      //Calculating and displaying bearings
+      	double longDiff = lon2-lon1;
+      	double y = Math.sin(longDiff)*Math.cos(lat2);
+      	double x = Math.cos(lat1)*Math.sin(lat2) -  Math.sin(lat1) 
+      				   * Math.cos(lat2)*Math.cos(longDiff);
+      	double bear = Math.toDegrees((Math.atan2(y, x))+360)%360;
+      	bearings.setText(""+(int)bear+(char)0x00B0);
+      	//TODO change API arrow.setRotation((float)Math.abs(360-bear));
 
         new Handler().post(new Runnable() {
             public void run() {
             }
         });
+    }
+	public void onButtonClick(View view)
+	{
+		lon2 = Double.parseDouble(destinationLongitude.getText().toString());
+		lat2 = Double.parseDouble(destinationLatitude.getText().toString());
+		destination.setText("Destination: (" + lat2 + " ,"+lon2+")");
+		destination.setVisibility(1);
+		distance.setVisibility(1);
+		bearings.setVisibility(1);
+		arrow.setVisibility(1);
+	}
+	
+       public void haversine(double la1, double lo1, double la2, double lo2)
+       {
+        final int R = 20925524; // ft 6371 meters = Radius of the earth
+        Double latA = la1;
+        Double lonA = lo1;
+        Double latB = la2;
+        Double lonB = lo2;
+        Double latDistance = toRad(latB-latA);
+        Double lonDistance = toRad(lonB-lonA);
+        Double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2) + 
+                   Math.cos(toRad(latA)) * Math.cos(toRad(latB)) * 
+                   Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        Double d = R * c;
+        distance.setText("You are "+ Math.round(d*100)/100 + " feet from your destination.");
+ 
+    }
+     
+    public static double toRad(double value) {
+        return value * Math.PI / 180;
     }
 }
