@@ -17,12 +17,16 @@
 package com.harris.challenge.brata.tools;
 
 import com.harris.challenge.brata.R;
+
 import android.app.Activity;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * Used for finding inclination of an object
@@ -32,6 +36,13 @@ import android.os.Bundle;
  */
 public class InclinationActivity extends Activity
 {   
+	//TextView xValue;
+	//TextView yValue;
+	//TextView zValue;
+	TextView angle;
+	TextView saveAngleView;
+	Button saveAngle;
+	double saveTheta = 0;
   /** Called when the activity is first created. */
   @Override
   public void onCreate(Bundle savedInstanceState)
@@ -39,6 +50,13 @@ public class InclinationActivity extends Activity
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_inclination);        
 
+      //xValue = (TextView) findViewById (R.id.xValue);
+      //yValue = (TextView) findViewById (R.id.yValue);
+      //zValue = (TextView) findViewById (R.id.zValue);
+      saveAngleView = (TextView) findViewById (R.id.saveAngleView);
+      saveAngle = (Button) findViewById (R.id.saveAngle);
+      angle = (TextView) findViewById (R.id.angle);
+      
       // there are a few sensors on the phone.  This guy manages them all.
       SensorManager sensorManager = (SensorManager) this.getSystemService(SENSOR_SERVICE);        
       
@@ -63,7 +81,14 @@ public class InclinationActivity extends Activity
                       //Raw sensor values from accelerometer
                       float x = event.values[0];
                       float y = event.values[1];
-                      float z = event.values[2];                    
+                      float z = event.values[2]; 
+                      double theta= Math.atan(z/y);
+                      
+                      //xValue.setText("The z value is "+ (int)x);
+                      //yValue.setText("The x value is "+ (int)y);
+                      //zValue.setText("The y value is "+(int)z);
+                      saveTheta = theta*180/Math.PI;
+                      angle.setText("" + (int)(theta*180/Math.PI) + (char)0x00B0);
                       
                       break;
               }
@@ -74,6 +99,12 @@ public class InclinationActivity extends Activity
       // sensor manager along with the sensor wanted.
       setListners(sensorManager, mEventListener);
 
+  }
+  
+  public void onClickAngle(View view)
+  {
+	  saveAngleView.setText(""+(int)saveTheta+(char)0x00B0);
+	  saveAngleView.setVisibility(1);
   }
 
   // Register the event listener and sensor type.
