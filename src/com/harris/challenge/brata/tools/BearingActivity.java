@@ -17,12 +17,15 @@
 package com.harris.challenge.brata.tools;
 
 import com.harris.challenge.brata.R;
+
 import android.app.Activity;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * Used for finding rotational bearing
@@ -32,6 +35,9 @@ import android.os.Bundle;
  */
 public class BearingActivity extends Activity implements SensorEventListener
 {   
+	TextView bearings;
+	ImageView arrow;
+	float reading = 0;
   Float reading_in_radians;  // View to draw a compass
   SensorManager sensorManager = null;
   /** Called when the activity is first created. */
@@ -41,6 +47,9 @@ public class BearingActivity extends Activity implements SensorEventListener
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_bearing);        
 
+      bearings = (TextView) findViewById(R.id.bearingsTitle);
+      arrow = (ImageView) findViewById(R.id.arrow);
+      
       // there are a few sensors on the phone.  This guy manages them all.
       SensorManager sensorManager = (SensorManager) this.getSystemService(SENSOR_SERVICE);        
 
@@ -94,6 +103,10 @@ public class BearingActivity extends Activity implements SensorEventListener
         
         // Insert code here
         // update UI with bearing
+        double bear = reading_in_radians*180/Math.PI;
+        if(bear<0) bear+=360;
+        bearings.setText("You are "+ (int)bear + " degrees from North.");
+        // TODO fix API min arrow.setRotation((float)Math.abs(360-bear));   
       }
     }
   }
