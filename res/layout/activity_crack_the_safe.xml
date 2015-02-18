@@ -23,4 +23,76 @@
         android:layout_toLeftOf="@+id/textView1"
         android:text="Start Challenge" />
 
+    <TextView
+        android:id="@+id/decodedMessageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/buttonCtsStartChallenge"
+        android:layout_alignBottom="@+id/buttonCtsStartChallenge"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="Decoded: " />
+
+    <EditText
+        android:id="@+id/a2Edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/a1Edit"
+        android:layout_below="@+id/a1Edit"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/a1Edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/a3Edit"
+        android:layout_below="@+id/buttonCtsStartChallenge"
+        android:ems="10"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/a3Edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/a4Edit"
+        android:layout_below="@+id/a2Edit"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/a4Edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/a5Edit"
+        android:layout_below="@+id/a3Edit"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/a5Edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/a4Edit"
+        android:layout_centerHorizontal="true"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/a5Edit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:text="Button" />
+
+    <TextView
+        android:id="@+id/answerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp"
+        android:text="Combo:"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
 </RelativeLayout>
